@@ -73,11 +73,11 @@ class BlogController extends Controller
         //dd($blogs);
       if(is_null($blog)){
         \Session::flash('err_msg','データがありません');
-        return redirect(route('blogs'));
+        return redirect(route('user.blogs'));
       }
 
       //return view('blog.detail',['blogs'=> $blog]);
-      return view('user.blog.edit')->with('user.blog', $blog);
+      return view('user.blog.edit')->with('blog', $blog);
     }
 
     //blogの更新
