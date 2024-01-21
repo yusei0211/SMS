@@ -1,10 +1,10 @@
-@extends('layout')
+@extends('user.layout')
 @section('title', 'ブログ編集')
 @section('content')
 <div class="row">
     <div class="col-md-8 col-md-offset-2">
         <h2>ブログ編集フォーム</h2>
-        <form method="POST" action="{{ route('update') }}" onSubmit="return checkSubmit()">
+        <form method="POST" action="{{ route('user.update') }}" onSubmit="return checkSubmit()">
             @csrf
             <input type="hidden" name="id" value="{{ $blog->id }}">
             <div class="form-group">
@@ -41,7 +41,7 @@
                 @endif
             </div>
             <div class="mt-5">
-                <a class="btn btn-secondary" href="{{ route('blogs') }}">
+                <a class="btn btn-secondary" href="{{ route('user.blogs') }}">
                     キャンセル
                 </a>
                 <button type="submit" class="btn btn-primary">
