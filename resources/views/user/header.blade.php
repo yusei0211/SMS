@@ -7,7 +7,7 @@
     <div class="navbar-nav">
       <a class="nav-item nav-link active" href="{{ route('user.blogs') }}">投稿一覧 <span class="sr-only"></span></a>
       <a class="nav-item nav-link" href="{{ route('user.create') }}">投稿</a>
-      <a class="nav-item nav-link" href="{{ route('user.create') }}">工事中</a>
+      <a class="nav-item nav-link" href="{{ route('user.dashboard') }}">Myページ</a>
     </div>
   </div>
 </nav>
