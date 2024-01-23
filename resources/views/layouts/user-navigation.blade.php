@@ -34,9 +34,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('user.profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+                        
 
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('user.logout') }}">

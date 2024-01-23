@@ -6,6 +6,8 @@ use App\Http\Requests\BlogRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\User; //追記
+use Illuminate\Support\Facades\Auth; //追記
 
 class BlogController extends Controller
 {
@@ -43,27 +45,27 @@ class BlogController extends Controller
         return view('user.blog.form');
     }
 
-    //blogの投稿
-    public function exeStore(BlogRequest $request) 
-    {
-        //dd($request->all());
-        //ブログでデータを受け取る
-        $inputs = $request->all();
+    // blogの投稿
+public function exeStore(BlogRequest $request) 
+{
+    // ログイン中のユーザーに関連づけてデータを受け取る
+    $user = Auth::user();
+    $inputs = ['user_id' => $user->id, 'title' => $request->title, 'content' => $request->content];
 
-        //トランザクション処理
-        \DB::beginTransaction();
-        try{
-            //ブログ投稿
-            Blog::create($inputs);
-            \DB::commit();
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
-        
-        \Session::flash('err_msg','ブログを登録しました');
-        return redirect(route('user.blogs'));
+    // トランザクション処理
+    \DB::beginTransaction();
+    try {
+        // ブログ投稿
+        Blog::create($inputs);
+        \DB::commit();
+    } catch (\Throwable $e) {
+        \DB::rollback();
+        abort(500);
     }
+    
+    \Session::flash('success_msg', 'ブログを登録しました');
+    return redirect(route('user.blogs'));
+}
 
     //ブログ編集フォームを表示
     public function showEdit($id)
@@ -81,31 +83,34 @@ class BlogController extends Controller
     }
 
     //blogの更新
-    public function exeUpdate(BlogRequest $request) 
-    {
-        //dd($request->all());
-        //ブログのデータを受け取る
-        $inputs = $request->all();
+    //blogの更新
+//blogの更新
+public function exeUpdate(BlogRequest $request) 
+{
+    //dd($request->all());
+    //ブログのデータを受け取る
+    $inputs = $request->all();
 
-        //トランザクション処理
-        \DB::beginTransaction();
-        try{
-            //ブログ投稿
-            $blog = Blog::find($inputs['id']);
-            $blog->fill([
-                'title' => $inputs['title'],
-                'content' => $inputs['content'],
-            ]);
-            $blog->save();
-            \DB::commit();
-        } catch(\Throwable $e) {
-            \DB::rollback();
-            abort(500);
-        }
-        
-        \Session::flash('err_msg','ブログを登録しました');
-        return redirect(route('user.blogs'));
+    //トランザクション処理
+    \DB::beginTransaction();
+    try{
+        //ブログ投稿
+        $blog = Blog::find($inputs['id']);
+        $blog->fill([
+            'title' => $inputs['title'],
+            'content' => $inputs['content'],
+        ]);
+        $blog->save();
+        \DB::commit();
+    } catch(\Throwable $e) {
+        \DB::rollback();
+        abort(500);
     }
+    
+    \Session::flash('err_msg','ブログを登録しました');
+    return redirect(route('user.blogs'));
+}
+
 
     //ブログ削除
     public function exeDelete($id)
