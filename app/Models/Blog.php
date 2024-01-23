@@ -14,7 +14,13 @@ class Blog extends Model
     // 可変項目
     protected $fillable =
     [
+        'user_id',
         'title',
         'content'
     ];
+    // ユーザーとのリレーションシップ
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

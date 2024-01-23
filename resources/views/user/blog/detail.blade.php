@@ -1,4 +1,4 @@
-@extends('layout')
+@extends('user.layout')
 @section('tite','ブログ一覧')
 @section('content')
 <div class="row">
