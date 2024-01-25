@@ -14,6 +14,7 @@
                     <th>タイトル</th>
                     <th>内容</th>
                     <th>日付</th>
+                    <th>いいね</th>
                     
                 </tr>
                 @foreach($blogs as $blog)
@@ -21,12 +22,27 @@
                         <td><a href="/blog/{{ $blog->id }}">{{ $blog->title }}</a></td>
                         <td>{{ $blog->content }}</td>
                         <td>{{ $blog->updated_at }}</td>
-                        
-                        @if(Auth::check() && $blog->user_id == Auth::id())
-                        
-                        <td><button type="button" class="btn btn-primary" onclick="location.href='/blog/edit/{{ $blog->id }}'">編集</button></td>
+                        <div class="row justify">
+
+
                         <td>
-                            <form method="POST" action="{{ route('user.delete', $blog->id) }}" onSubmit="return checkDelete()">
+                        @if($blog->is_liked_by_auth_user())
+                            <a href="{{ route('user.unlike', ['id' => $blog->id]) }}" class="btn btn-success btn-sm w-full">👍<span class="badge">{{ $blog->likes->count() }}</span></a>
+                        @else
+                            <a href="{{ route('user.like', ['id' => $blog->id]) }}" class="btn btn-secondary btn-sm w-full">　<span class="badge">{{ $blog->likes->count() }}</span></a>
+                        @endif
+                        </td>
+
+
+                        @if(Auth::check() && $blog->user_id == Auth::id())
+                        <td>
+                            <form method="GET" action="{{ route('user.edit', $blog->id) }}">
+                                @csrf
+                                <button type="submit" class="btn btn-primary">編集</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="GET" action="{{ route('user.delete', $blog->id) }}" onSubmit="return checkDelete()">
                                 @csrf
                                 <button type="submit" class="btn btn-primary">削除</button>
                             </form>

@@ -1,7 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard') }}
+        <a class="nav-item nav-link active mx-4" href="{{ route('owner.blogs') }}">ブログ一覧へ <span class="sr-only"></span></a>
+        |
+        <a class="nav-item nav-link active mx-4" href="{{ route('owner.users') }}">利用者一覧へ <span class="sr-only"></span></a>
         </h2>
     </x-slot>
 

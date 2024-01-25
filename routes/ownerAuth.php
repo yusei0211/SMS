@@ -1,7 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Owner\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Owner\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Owner\Auth\EmailVerificationNotificationController;
@@ -11,34 +9,9 @@ use App\Http\Controllers\Owner\Auth\PasswordController;
 use App\Http\Controllers\Owner\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Owner\Auth\RegisteredUserController;
 use App\Http\Controllers\Owner\Auth\VerifyEmailController;
-use App\Http\Controllers\Owner\BlogController;
-use App\Http\Controllers\Owner\UserController;
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('owner.welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('owner.dashboard');
-})->middleware(['auth:owners', 'verified'])->name('dashboard');
-
-Route::middleware('auth:owners')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-Route::middleware('auth:owners')->group(function () {
+Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
@@ -60,23 +33,7 @@ Route::middleware('auth:owners')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
-    
 });
-
-//ブログ一覧画面を表示
-Route::get('blog',[BlogController::class, 'showList'])->name('blogs');
-//ブログ削除
-Route::post('blog/delete/{id}',[BlogController::class, 'exeDelete'])->name('blogDelete');
-//ブログ復元
-Route::post('blog/restore/{id}',[BlogController::class, 'exeRestore'])->name('blogRestore');
-
-//ユーザー一覧画面を表示
-Route::get('user',[UserController::class, 'showList'])->name('users');
-//ユーザー削除
-Route::post('user/delete/{id}',[UserController::class, 'exeDelete'])->name('userDelete');
-//ユーザー復元
-Route::post('user/restore/{id}',[UserController::class, 'exeRestore'])->name('userRestore');
-
 
 Route::middleware('auth:owners')->group(function () {
     Route::get('verify-email', EmailVerificationPromptController::class)
@@ -100,5 +57,3 @@ Route::middleware('auth:owners')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
 });
-
-require __DIR__.'/ownerAuth.php';

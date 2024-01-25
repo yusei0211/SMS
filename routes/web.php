@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\BlogController;
-
+use App\Http\Controllers\User\LikeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,10 +38,16 @@ Route::get('/blog/{id}',[BlogController::class, 'showDetail'])->name('show');
 Route::get('/blog/edit/{id}',[BlogController::class, 'showEdit'])->name('edit');
 
 //ブログ編集
-Route::post('/blog/update',[BlogController::class, 'exeUpdate'])->name('update');
+Route::get('/blog/update',[BlogController::class, 'exeUpdate'])->name('update');
 
 //ブログ削除
-Route::post('/blog/delete/{id}',[BlogController::class, 'exeDelete'])->name('delete');
+Route::get('/blog/delete/{id}',[BlogController::class, 'exeDelete'])->name('delete');
+
+//ブログいいね
+Route::get('/blog/like/{id}',[LikeController::class, 'exeLike'])->name('like');
+
+//ブログいいね削除
+Route::get('/blog/unlike/{id}',[LikeController::class, 'exeUnlike'])->name('unlike');
 });
 
 Route::get('/dashboard', function () {

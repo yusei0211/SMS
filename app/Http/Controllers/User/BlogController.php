@@ -19,7 +19,6 @@ class BlogController extends Controller
     public function showList()
     {
         $blogs = Blog::all();
-
         //dd($blogs);
 
       return view('user.blog.list',['blogs'=> $blogs]);
