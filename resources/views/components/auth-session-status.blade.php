@@ -1,3 +1,4 @@
+<!--齊藤-->
 @props(['status'])
 
 @if ($status)

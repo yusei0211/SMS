@@ -1,5 +1,5 @@
 <?php
-
+//齊藤
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;

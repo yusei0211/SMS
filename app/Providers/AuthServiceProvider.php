@@ -1,5 +1,5 @@
 <?php
-
+//齊藤
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;

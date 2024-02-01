@@ -1,3 +1,4 @@
+<!--齊藤-->
 @extends('user.layout')
 @section('title', 'ブログ投稿')
 @section('content')

@@ -1,3 +1,4 @@
+<!--齊藤-->
 <x-guest-layout>
     <form method="POST" action="{{ route('user.password.store') }}">
         @csrf

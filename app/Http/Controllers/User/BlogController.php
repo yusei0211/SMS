@@ -1,5 +1,5 @@
 <?php
-
+//齊藤
 namespace App\Http\Controllers\User;
 
 use App\Http\Requests\BlogRequest;

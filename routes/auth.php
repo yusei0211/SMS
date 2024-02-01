@@ -1,5 +1,5 @@
 <?php
-
+//齊藤
 use App\Http\Controllers\User\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\User\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\User\Auth\EmailVerificationNotificationController;
